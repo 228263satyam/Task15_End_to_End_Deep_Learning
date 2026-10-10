@@ -173,23 +173,9 @@ Clean up only this Task 15 namespace:
 kubectl delete namespace task15-cifar10
 ```
 
-## 7. Screenshots required for submission
 
-Capture your own screenshots after actually running the steps. Recommended names:
 
-1. `01_project_structure.png` — source files in VS Code.
-2. `02_model_loaded.png` — backend log showing model input/output shape.
-3. `03_api_health.png` — `/health` response.
-4. `04_prediction.png` — successful `/predict` response in Postman or terminal.
-5. `05_streamlit_ui.png` — uploaded image and prediction.
-6. `06_docker_compose.png` — `docker compose ps` with both services running.
-7. `07_kubernetes_pods.png` — `kubectl ... get pods,svc`.
-8. `08_kubernetes_ui.png` — Streamlit UI served from Kubernetes.
-9. `09_metrics.png` — `/metrics` output.
-
-Do not include fabricated screenshots or state a cloud URL unless deployed and verified.
-
-## 8. Model-specific notes
+## 7. Model-specific notes
 
 - This API assumes a 32×32 RGB input and ten output scores in CIFAR-10 class order.
 - It defaults to input pixel values `[0,255]`. If the model was trained with inputs divided by 255, set `NORMALIZE_INPUT=1` in the backend environment and rebuild/redeploy.
@@ -197,30 +183,3 @@ Do not include fabricated screenshots or state a cloud URL unless deployed and v
 - CIFAR-10 is a small-image dataset. Predictions on general phone photos may be weak; use test images similar to the training data.
 - This project reports runtime inference latency and request/error counts. It does not claim a validated accuracy score unless evaluated on a labeled test set.
 
-## 9. GitHub publishing
-
-From the project root, after adding the model file:
-
-```powershell
-git init
-git add .
-git commit -m "Complete Task 15 end-to-end deep learning deployment"
-git branch -M main
-git remote add origin https://github.com/<YOUR_USERNAME>/<YOUR_REPOSITORY>.git
-git push -u origin main
-```
-
-Do not commit secrets. Model files may exceed GitHub's regular 100 MB file limit; if so, use Git LFS or publish model instructions/download link instead. Ensure you have rights to publish the model.
-
-## 10. Final LMS checklist
-
-- [ ] Source code and `requirements.txt`
-- [ ] Keras model artifact (or documented model retrieval method)
-- [ ] Dockerfiles and `docker-compose.yml`
-- [ ] Kubernetes YAML files
-- [ ] README with reproducible commands
-- [ ] API tests and captured outputs
-- [ ] Screenshots from real runs
-- [ ] Final PDF report
-- [ ] Public GitHub URL tested in a private/incognito window
-- [ ] Submit PDF and/or repository URL through L&T Edutech LMS
