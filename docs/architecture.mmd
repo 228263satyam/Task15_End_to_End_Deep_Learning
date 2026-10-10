@@ -1,0 +1,17 @@
+flowchart TD
+    U[User / Browser] --> S[Streamlit UI :8501]
+    S -->|HTTP multipart upload| F[Flask REST API :5000]
+    F --> M[(Keras CIFAR-10 Model)]
+    F --> H[/health]
+    F --> P[/predict]
+    F --> R[/metrics]
+    subgraph Container Deployment
+      S
+      F
+      M
+    end
+    subgraph Kubernetes
+      KS[Frontend Deployment + Service]
+      KB[Backend Deployment + Service]
+    end
+    KS --> KB

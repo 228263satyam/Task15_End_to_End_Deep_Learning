@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cifar10-frontend
+  namespace: task15-cifar10
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cifar10-frontend
+  template:
+    metadata:
+      labels:
+        app: cifar10-frontend
+    spec:
+      containers:
+        - name: streamlit
+          image: task15-cifar10-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8501
+          env:
+            - name: API_URL
+              value: http://cifar10-backend:5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cifar10-frontend
+  namespace: task15-cifar10
+spec:
+  selector:
+    app: cifar10-frontend
+  ports:
+    - name: http
+      port: 8501
+      targetPort: 8501
+  type: NodePort
